@@ -32,6 +32,13 @@ public class CsvFile {
     
     
     
+    //overide toString
+
+    @Override
+    public String toString() {
+        return "CsvFile{" + "naam=" + naam + '}';
+    }
+    
     
     
 }

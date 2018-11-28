@@ -5,10 +5,34 @@
  */
 package com.realdolmen.services;
 
+import com.realdolmen.domain.CsvFile;
+import com.realdolmen.repositories.CsvFileRepo;
+
+        
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author YLOBL55
  */
 public class CsvService {
+    private CsvFileRepo csvRepo;
+
+    public CsvService(CsvFileRepo csvRepo) {
+        this.csvRepo = csvRepo;
+    }
     
+    
+
+//methode voor read
+    public void readCsvFile( ) throws FileNotFoundException{
+        Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
+        scanner.useDelimiter(",");
+        while(scanner.hasNext()){
+            System.out.print(scanner.next()+" | ");
+        }
+        scanner.close();
+    }
 }

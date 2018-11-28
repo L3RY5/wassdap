@@ -11,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.realdolmen.domain.CsvFile;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 /**
  *
  * @author YLOBL55
@@ -19,9 +23,7 @@ public class CsvFileRepo {
     
     //connecteren Met database
     
-    //methode voor read
-    public void readCsvFile(){
-    }
+    
     
     
     //methode Voor Write

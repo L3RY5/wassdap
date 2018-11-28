@@ -10,6 +10,25 @@ package com.realdolmen.domain;
  * @author YLOBL55
  */
 public class CsvFile {
+    //propertie
+    private String naam;
+
+    
+    
+    
+    //construtor
+    public CsvFile(String naam) {
+        this.naam = naam;
+    }
+
+    //gettters en setter
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
     
     
     

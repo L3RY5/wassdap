@@ -9,7 +9,7 @@ package com.realdolmen.repositories;
  *
  * @author YLOBL55
  */
-public class AbstractRepo {
+public class CsvFileRepo {
     
     //connecteren Met database
     

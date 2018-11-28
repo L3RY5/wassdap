@@ -5,12 +5,17 @@
  */
 package com.realdolmen.services;
 
+import com.opencsv.CSVReader;
 import com.realdolmen.domain.CsvFile;
 import com.realdolmen.repositories.CsvFileRepo;
 
         
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -27,16 +32,20 @@ public class CsvService {
     
 
 //methode voor read
-    public void readCsvFile( ) throws FileNotFoundException{
+    public void readCsvFile( ) throws FileNotFoundException, IOException{
         Scanner in = new Scanner(System.in);
         System.out.print("Geef de pad naar uw CSV fille :  ");
         String path = in.next();
-        Scanner scanner = new Scanner(new File(path));
-        //Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
-        scanner.useDelimiter(",");
-        while(scanner.hasNext()){
-            System.out.print(scanner.next()+" | ");
+        CSVReader reader2 = new CSVReader(new FileReader(path));
+        //Scanner  = new Scanner(new File(path));
+        List<String[]> myEntries = reader2.readAll();
+        for (String[] kak : myEntries) {
+            System.out.println(Arrays.toString(kak));
         }
-        scanner.close();
     }
+       
+        
+
+
+        
 }

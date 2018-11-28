@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.realdolmen.repositories;
+import com.realdolmen.domain.CsvFile;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,9 +23,31 @@ import java.util.Scanner;
 public class CsvFileRepo {
     
     //connecteren Met database
+     public static final String LOGIN = "root";
+    public static final String PASSWORD = "root";
+    public  static String DRIVER = "com.mysql.jdbc.Driver";
+    public static String URL = "jdbc:mysql://localhost:3306/clientdb?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
     
     
+    String Titel = null,  Locatie= null, Straat = null, nr = null, Postcode = null;
+    //constructor
+
+    public CsvFileRepo() {
+        this(URL);
+    }
     
+
+    protected CsvFileRepo(String url) {
+        URL = url;
+    }
+    
+    private Connection creatConnection()throws SQLException{
+        conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
+        //Statement = conn.createStatement();
+    return conn ;
+    }
     
     //methode Voor Write
     public void writeCsvFile(){
@@ -33,6 +56,7 @@ public class CsvFileRepo {
     
     //methode print
     public void printCsvFile(){
+        
     }
     
     
@@ -41,6 +65,13 @@ public class CsvFileRepo {
     public void updataCsvFile(){
         
     }
+    
+    //display the table
+    
+    //insert in DB
+    /*public void insert(String){
+    
+    }*/
     
     
     

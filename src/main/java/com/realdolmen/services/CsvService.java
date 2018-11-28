@@ -28,7 +28,11 @@ public class CsvService {
 
 //methode voor read
     public void readCsvFile( ) throws FileNotFoundException{
-        Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
+        Scanner in = new Scanner(System.in);
+        System.out.print("Geef de pad naar uw CSV fille :  ");
+        String path = in.next();
+        Scanner scanner = new Scanner(new File(path));
+        //Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
             System.out.print(scanner.next()+" | ");

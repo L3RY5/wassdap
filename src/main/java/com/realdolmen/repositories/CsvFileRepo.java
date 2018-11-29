@@ -41,7 +41,7 @@ public class CsvFileRepo {
     // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
 
-    String Titel = "sdsdd", Locatie = null, Straat = null, Nr = null, PostCode = null, Gemeente = null, Land = null, Omschrijven = null, WikipediaLink = null, Website = null, Telefoon = null, Email = null, Prijs = null, Persoon = null;
+    //String Titel = "sdsdd", Locatie = null, Straat = null, Nr = null, PostCode = null, Gemeente = null, Land = null, Omschrijven = null, WikipediaLink = null, Website = null, Telefoon = null, Email = null, Prijs = null, Persoon = null;
     //constructor
 
     public CsvFileRepo() {
@@ -86,26 +86,37 @@ public class CsvFileRepo {
 
     //display the table
     //insert in DB
-    public void insert(List<String[]> csv) throws SQLException {
+    public void insert(List<String[]> csv) throws SQLException, InterruptedException {
         connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
         Statement statement = connection.createStatement();
         statement.executeUpdate("TRUNCATE stageproduct.stageproducttabel");
+        Thread.sleep(1000);
+
         System.out.println("Clearing table");
 
         String query = "INSERT INTO stageproduct.stageproducttabel(Titel,Locatie,Straat,Nr,PostCode,Gemeente,Land,Omschrijven,WikipediaLink,Website,Telefoon,Email,Prijs,Persoon)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println("Pleas wait... connecting with DB");
         conn = creatConnection();
-        System.out.println("................................");
+        
         System.out.println("Adding Data into DB");
-        preparedStatement = conn.prepareCall(query);
+        Thread.sleep(1000);
+     
 
+        preparedStatement = conn.prepareCall(query);
+        int pId=1;
         csv.remove(0);
         for (String[] kak : csv) {
+            System.out.println("..........................Product ID " +pId +"......................");
             for (int i = 0; i < kak.length; i++) {
+                
                 System.out.println(kak[i]);
                 preparedStatement.setString(i+1, kak[i]);
             }
+            
             preparedStatement.execute();
+            
+            pId++;
+            Thread.sleep(2000);
         }
 
         /*preparedStatement.setString(1, "Titel");

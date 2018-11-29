@@ -92,8 +92,8 @@ public class CsvFileRepo {
         System.out.println("Adding Data into DB");
         preparedStatement = conn.prepareCall(query);
 
+        csv.remove(0);
         for (String[] kak : csv) {
-            if(kak == csv[0])continue;
             for (int i = 0; i < kak.length; i++) {
                 System.out.println(kak[i]);
                 preparedStatement.setString(i+1, kak[i]);

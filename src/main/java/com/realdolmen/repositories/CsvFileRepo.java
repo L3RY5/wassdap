@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.realdolmen.domain.CsvFile;
 import com.realdolmen.services.CsvService;
+import com.sun.javafx.iio.common.ImageTools;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,7 +34,7 @@ public class CsvFileRepo {
     public static final String LOGIN = "root";
     public static final String PASSWORD = "root";
     public static String DRIVER = "com.mysql.jdbc.Driver";
-    public static String URL = "jdbc:mysql://localhost:3306/clientdb?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static String URL = "jdbc:mysql://localhost:3306/stageproduct?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     Connection conn = null;
     // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
@@ -92,8 +93,10 @@ public class CsvFileRepo {
         preparedStatement = conn.prepareCall(query);
 
         for (String[] kak : csv) {
-            for (int i = 1; i < kak.length; i++) {
-                preparedStatement.setString(i, kak[i]);
+            if(kak == csv[0])continue;
+            for (int i = 0; i < kak.length; i++) {
+                System.out.println(kak[i]);
+                preparedStatement.setString(i+1, kak[i]);
             }
             preparedStatement.execute();
         }

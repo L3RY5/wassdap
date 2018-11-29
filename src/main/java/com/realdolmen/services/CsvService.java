@@ -33,22 +33,21 @@ public class CsvService {
     
 
 //methode voor read
-    public void readCsvFile( ) throws FileNotFoundException, IOException{
-        Scanner in = new Scanner(System.in);
-        System.out.print("Geef de pad naar uw CSV fille :  ");
-        String path = in.next();
-        CSVReader reader2 = new CSVReader(new FileReader(path));
-        //Scanner  = new Scanner(new File(path));
-        List<String[]> myEntries = reader2.readAll();
-        for (String[] kak : myEntries) {
+    public List<String[]> readCsvFile( ) throws FileNotFoundException, IOException{
+       return csvRepo.displayCsv();
+    }
+    
+   /*// Method insert into DB
+    public  void fillDb(List<String[]> csv){
+                for (String[] kak : csv) {
             System.out.println(Arrays.toString(kak));
         }
-    }
+    }   */
     
     
     //voegTioe
-    public void AddMovie(CsvFile csvFile) throws SQLException{
-         csvRepo.insert("titel","locatie","straat","nr","postcode","gemeente","land","omschrijven","wikipediaLinks","website","telefoon","email","prijs","persoon");
+    public void AddMovie(List<String[]> csv) throws SQLException{
+         csvRepo.insert(csv);
     }
        
         

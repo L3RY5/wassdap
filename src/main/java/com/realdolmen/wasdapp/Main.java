@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException ,SQLException{
         
         
-       /* Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
+       /* Scanner scanner = new Scanner(new File("C:/Users/SMTBM06/Desktop/StageNov-master/wassdap/Import-Sheet1.csv"));
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
             System.out.print(scanner.next()+" | ");
@@ -23,7 +23,7 @@ public class Main {
        //CsvFile csv1 = new CsvFile("SSS");
        CsvService csvService = new CsvService(new CsvFileRepo());
        csvService.readCsvFile();
-       csvService.AddMovie(new CsvFile("Sedric"));
+       //csvService.AddMovie(new CsvFile("Sedric"));
        
     }
 }

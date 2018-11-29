@@ -28,10 +28,11 @@ public class CsvFileRepo {
     public  static String DRIVER = "com.mysql.jdbc.Driver";
     public static String URL = "jdbc:mysql://localhost:3306/clientdb?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     Connection conn = null;
+   // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
     
     
-    String Titel = null,  Locatie= null, Straat = null, nr = null, Postcode = null;
+    String Titel = "sdsdd", Locatie= null, Straat = null, Nr = null, PostCode = null, Gemeente= null,Land=null,Omschrijven=null,WikipediaLink=null,Website=null,Telefoon=null,Email=null,Prijs=null,Persoon=null;
     //constructor
 
     public CsvFileRepo() {
@@ -69,9 +70,32 @@ public class CsvFileRepo {
     //display the table
     
     //insert in DB
-    /*public void insert(String){
-    
-    }*/
+    public void insert(String titel,String locatie,String straat,String nr,String postcode,String gemeente,String land,String omschrijven,String wikipediaLinks,String website,String telefoon,String email,String prijs,String persoon) throws SQLException{
+    String query = "INSERT INTO stageproduct.stageproducttabel(Titel,Locatie,Straat,Nr,PostCode,Gemeente,Land,Omschrijven,WikipediaLink,Website,Telefoon,Email,Prijs,Persoon)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";   
+    System.out.println("Pleas wait... connecting with DB");
+    conn = creatConnection();
+     System.out.println("................................");
+      System.out.println("Adding Data into DB");
+    preparedStatement=conn.prepareCall(query);
+    preparedStatement.setString(1, "Titel");
+    preparedStatement.setString(2, "Locatie2");
+    preparedStatement.setString(3, "Straat");
+    preparedStatement.setString(4, "NrTest");
+    preparedStatement.setString(5, "Locatie2");
+    preparedStatement.setString(6, "Straat");
+    preparedStatement.setString(7, "NrTest");
+    preparedStatement.setString(8, "NrTest");
+    preparedStatement.setString(9, "Locatie2");
+    preparedStatement.setString(10, "Straat");
+    preparedStatement.setString(11, "NrTest");
+    preparedStatement.setString(12, "Locatie2");
+    preparedStatement.setString(13, "Straat");
+    preparedStatement.setString(14, "NrTest");
+    preparedStatement.execute();
+    System.out.println("Insertion Succecfull");
+    preparedStatement.close();
+     
+    }
     
     
     

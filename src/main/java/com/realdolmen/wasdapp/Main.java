@@ -6,11 +6,12 @@ import com.realdolmen.services.CsvService;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException ,SQLException{
         
         
        /* Scanner scanner = new Scanner(new File("/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
@@ -22,6 +23,7 @@ public class Main {
        //CsvFile csv1 = new CsvFile("SSS");
        CsvService csvService = new CsvService(new CsvFileRepo());
        csvService.readCsvFile();
+       csvService.AddMovie(new CsvFile("Sedric"));
        
     }
 }

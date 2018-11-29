@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -42,6 +43,12 @@ public class CsvService {
         for (String[] kak : myEntries) {
             System.out.println(Arrays.toString(kak));
         }
+    }
+    
+    
+    //voegTioe
+    public void AddMovie(CsvFile csvFile) throws SQLException{
+         csvRepo.insert("titel","locatie","straat","nr","postcode","gemeente","land","omschrijven","wikipediaLinks","website","telefoon","email","prijs","persoon");
     }
        
         

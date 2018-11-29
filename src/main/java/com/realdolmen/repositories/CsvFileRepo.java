@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -36,6 +37,7 @@ public class CsvFileRepo {
     public static String DRIVER = "com.mysql.jdbc.Driver";
     public static String URL = "jdbc:mysql://localhost:3306/stageproduct?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     Connection conn = null;
+    Connection connection =null;
     // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
 
@@ -85,6 +87,11 @@ public class CsvFileRepo {
     //display the table
     //insert in DB
     public void insert(List<String[]> csv) throws SQLException {
+        connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("TRUNCATE stageproduct.stageproducttabel");
+        System.out.println("Clearing table");
+
         String query = "INSERT INTO stageproduct.stageproducttabel(Titel,Locatie,Straat,Nr,PostCode,Gemeente,Land,Omschrijven,WikipediaLink,Website,Telefoon,Email,Prijs,Persoon)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println("Pleas wait... connecting with DB");
         conn = creatConnection();
@@ -92,8 +99,8 @@ public class CsvFileRepo {
         System.out.println("Adding Data into DB");
         preparedStatement = conn.prepareCall(query);
 
+        csv.remove(0);
         for (String[] kak : csv) {
-            if(kak == csv[0])continue;
             for (int i = 0; i < kak.length; i++) {
                 System.out.println(kak[i]);
                 preparedStatement.setString(i+1, kak[i]);

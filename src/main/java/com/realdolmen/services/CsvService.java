@@ -54,7 +54,7 @@ public class CsvService {
     
     
     //voegTioe
-    public void AddMovie(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException{
+    public void insertInTable(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException{
 
          csvRepo.insert(csv);
     }

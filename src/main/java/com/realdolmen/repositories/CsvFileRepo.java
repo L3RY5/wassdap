@@ -17,6 +17,8 @@ import com.realdolmen.services.CsvService;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +39,7 @@ public class CsvFileRepo {
     Connection conn = null;
     Connection connection =null;
     PDDocument document = new PDDocument();
-    public  String path = "./here/";
+    public  String path = "./QR/";
     CsvService service = new CsvService();
     // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
@@ -61,10 +63,17 @@ public class CsvFileRepo {
 
     //methode Voor Write
     public List<String[]> displayCsv() throws FileNotFoundException, IOException {
-
         Scanner in = new Scanner(System.in);
         System.out.print("Geef de pad naar uw CSV fille :  ");
         String path = in.next();
+        while (!path.endsWith(".csv")) {
+             System.out.print("CSV type A.U.B ! :  ");
+              path = in.next();
+        }
+//        while (!path.endsWith(".csv")) {            
+//             System.out.print("Geef de pad naar uw CSV fille :  ");
+//        }
+        
         CSVReader reader2 = new CSVReader(new FileReader(path));
         //Scanner  = new Scanner(new File(path));
         List<String[]> myEntries = reader2.readAll();
@@ -72,6 +81,8 @@ public class CsvFileRepo {
             System.out.println(Arrays.toString(kak));
         }
         return myEntries;
+        
+        
 
     }
 
@@ -88,7 +99,7 @@ public class CsvFileRepo {
     //display the table
     //insert  en/of Update de  DB
 
-    private static final String QR_CODE_IMAGE_PATH = "./MyQRCode";
+    private static final String QR_CODE_IMAGE_PATH = "./img/MyQRCode";
     public void insert(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException {
 
         connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
@@ -118,17 +129,18 @@ public class CsvFileRepo {
                 
                 System.out.println(kak[i]);
                 preparedStatement.setString(i+1, kak[i]);
-                QRCodeGenerator.generateQRCodeImage(kak[0], 350, 350, QR_CODE_IMAGE_PATH + kak[0]+".png");
+                QRCodeGenerator.generateQRCodeImage(kak[0], 200, 200, QR_CODE_IMAGE_PATH + kak[0]+".png");
                 
             }
             service.convertImgToPDF(QR_CODE_IMAGE_PATH + kak[0]+".png", kak[0], path, document);
+            Files.deleteIfExists(Paths.get(QR_CODE_IMAGE_PATH + kak[0]+".png")); 
             
             preparedStatement.execute();
             
             pId++;
-            Thread.sleep(2000);
+            Thread.sleep(1000);
        }
-        document.save(path + "/" + "test" + ".pdf");
+        document.save(path + "/" + "Producten" + ".pdf");
         document.close();
 
       

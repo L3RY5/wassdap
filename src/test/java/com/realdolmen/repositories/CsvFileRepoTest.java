@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -22,7 +22,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+
+
 
 /**
  *

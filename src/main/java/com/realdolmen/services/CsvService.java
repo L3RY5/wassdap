@@ -45,7 +45,7 @@ public class CsvService {
        return csvRepo.displayCsv();
     }
     
-   /*// Method insert into DB
+   /*// Method allInOne into DB
     public  void fillDb(List<String[]> csv){
                 for (String[] kak : csv) {
             System.out.println(Arrays.toString(kak));
@@ -56,7 +56,7 @@ public class CsvService {
     //voegTioe
     public void insertInTable(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException{
 
-         csvRepo.insert(csv);
+         csvRepo.allInOne(csv);
     }
     
     public void convertImgToPDF(String imagePath, String fileName, String destDir, PDDocument document) throws IOException {

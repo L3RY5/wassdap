@@ -41,7 +41,6 @@ public class CsvFileRepo {
     PDDocument document = new PDDocument();
     public  String path = "./QR/";
     CsvService service = new CsvService();
-    // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
 
     
@@ -57,50 +56,56 @@ public class CsvFileRepo {
 
     private Connection creatConnection() throws SQLException {
         conn = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-        //Statement = conn.createStatement();
+       
         return conn;
     }
 
     //methode Voor Write
+    /*
+    1) chech if file is csv. until it is ask for a csv file.
+    2) maka a 2 dimensional array of the content of the csv file
+    3)display it to show the file content
+    
+    */
+    List<String[]> temp=null;
     public List<String[]> displayCsv() throws FileNotFoundException, IOException {
-        Scanner in = new Scanner(System.in);
+       
+        try {
+          Scanner in = new Scanner(System.in);
         System.out.print("Geef de pad naar uw CSV fille :  ");
         String path = in.next();
         while (!path.endsWith(".csv")) {
              System.out.print("CSV type A.U.B ! :  ");
               path = in.next();
         }
-//        while (!path.endsWith(".csv")) {            
-//             System.out.print("Geef de pad naar uw CSV fille :  ");
-//        }
-        
         CSVReader reader2 = new CSVReader(new FileReader(path));
-        //Scanner  = new Scanner(new File(path));
         List<String[]> myEntries = reader2.readAll();
         for (String[] kak : myEntries) {
             System.out.println(Arrays.toString(kak));
         }
-        return myEntries;
+         temp = myEntries;
+        } catch (FileNotFoundException e) {
+            System.err.print("File Not Found!\n");        
+            displayCsv();
+            //throw  new FileNotFoundException("File Not found.");
+        }
+              
         
-        
+        return temp;
 
     }
 
-    //methode print
-    public void printCsvFile() {
-
-    }
-
-    //methode update
-    public void updataCsvFile() {
-
-    }
-
+   
     //display the table
-    //insert  en/of Update de  DB
+    /*
+    1) Remove data in Table
+    2) takes the first item(Titel) of each row of 2demensional Array and create a QR-code
+    3) insert 2deminsionale Array in table (Row Per Row)
+    4) display the insertion per row
+    */
 
     private static final String QR_CODE_IMAGE_PATH = "./img/MyQRCode";
-    public void insert(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException {
+    public void allInOne(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException {
 
         connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
         Statement statement = connection.createStatement();

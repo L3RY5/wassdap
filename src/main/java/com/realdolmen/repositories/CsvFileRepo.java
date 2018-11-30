@@ -7,18 +7,13 @@ package com.realdolmen.repositories;
 
 import com.google.zxing.WriterException;
 import com.opencsv.CSVReader;
-import com.realdolmen.domain.CsvFile;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.realdolmen.domain.CsvFile;
 import com.realdolmen.domain.QRCodeGenerator;
 import com.realdolmen.services.CsvService;
-import com.sun.javafx.iio.common.ImageTools;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,6 +21,7 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  *
@@ -40,10 +36,13 @@ public class CsvFileRepo {
     public static String URL = "jdbc:mysql://localhost:3306/stageproduct?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     Connection conn = null;
     Connection connection =null;
+    PDDocument document = new PDDocument();
+    public  String path = "./here/";
+    CsvService service = new CsvService();
     // Connection conn = DriverManager.getConnection(URL,LOGIN,PASSWORD);
     PreparedStatement preparedStatement = null;
 
-    //String Titel = "sdsdd", Locatie = null, Straat = null, Nr = null, PostCode = null, Gemeente = null, Land = null, Omschrijven = null, WikipediaLink = null, Website = null, Telefoon = null, Email = null, Prijs = null, Persoon = null;
+    
     //constructor
 
     public CsvFileRepo() {
@@ -87,9 +86,9 @@ public class CsvFileRepo {
     }
 
     //display the table
-    //insert in DB
+    //insert  en/of Update de  DB
 
-     private static final String QR_CODE_IMAGE_PATH = "./MyQRCode";
+    private static final String QR_CODE_IMAGE_PATH = "./MyQRCode";
     public void insert(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException {
 
         connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
@@ -114,35 +113,25 @@ public class CsvFileRepo {
 
              
             System.out.println("..........................Product ID " +pId +"......................");
-
+            
             for (int i = 0; i < kak.length; i++) {
                 
                 System.out.println(kak[i]);
                 preparedStatement.setString(i+1, kak[i]);
                 QRCodeGenerator.generateQRCodeImage(kak[0], 350, 350, QR_CODE_IMAGE_PATH + kak[0]+".png");
+                
             }
+            service.convertImgToPDF(QR_CODE_IMAGE_PATH + kak[0]+".png", kak[0], path, document);
             
             preparedStatement.execute();
             
             pId++;
             Thread.sleep(2000);
-        }
+       }
+        document.save(path + "/" + "test" + ".pdf");
+        document.close();
 
-        /*preparedStatement.setString(1, "Titel");
-    preparedStatement.setString(2, "Locatie2");
-    preparedStatement.setString(3, "Straat");
-    preparedStatement.setString(4, "NrTest");
-    preparedStatement.setString(5, "Locatie2");
-    preparedStatement.setString(6, "Straat");
-    preparedStatement.setString(7, "NrTest");
-    preparedStatement.setString(8, "NrTest");
-    preparedStatement.setString(9, "Locatie2");
-    preparedStatement.setString(10, "Straat");
-    preparedStatement.setString(11, "NrTest");
-    preparedStatement.setString(12, "Locatie2");
-    preparedStatement.setString(13, "Straat");
-    preparedStatement.setString(14, "NrTest");*/
-        //preparedStatement.execute();
+      
         System.out.println("Insertion Succecfull");
         preparedStatement.close();
 

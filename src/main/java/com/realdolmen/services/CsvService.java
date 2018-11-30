@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.realdolmen.services;
 
 
@@ -36,7 +32,7 @@ public class CsvService {
     }
 
     public CsvService() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
     }    
     
 
@@ -45,20 +41,18 @@ public class CsvService {
        return csvRepo.displayCsv();
     }
     
-   /*// Method allInOne into DB
-    public  void fillDb(List<String[]> csv){
-                for (String[] kak : csv) {
-            System.out.println(Arrays.toString(kak));
-        }
-    }   */
-    
+   
     
     //voegTioe
+    //all in one
     public void insertInTable(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException{
 
          csvRepo.allInOne(csv);
     }
     
+    /*
+     1) convverts the imges to pdf
+    */
     public void convertImgToPDF(String imagePath, String fileName, String destDir, PDDocument document) throws IOException {
         //PDDocument document = new PDDocument();
         InputStream in = new FileInputStream(imagePath);
@@ -72,8 +66,7 @@ public class CsvService {
         contentStream.drawImage(img, 0, 0);
         contentStream.close();
         in.close();
-        //document.save(destDir + "/" + fileName + ".pdf");
-       // document.close();
+       
     }
        
         

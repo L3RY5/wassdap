@@ -1,27 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.realdolmen.repositories;
 
 
+import com.google.zxing.WriterException;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
+
 
 
 
@@ -72,11 +68,11 @@ public class CsvFileRepoTest {
 
 
     @Test (expected = SQLException.class)
-    public void findAllTestExceptionThrown() throws SQLException {
+    public void findAllTestExceptionThrown() throws SQLException, WriterException, IOException, InterruptedException {
         Repo = new CsvFileRepo();
         when(resultSet.getString("title")).thenThrow(SQLException.class);
         
-        Repo.insert((List<String[]>) resultSet);
+        Repo.allInOne((List<String[]>) resultSet);
         verify(resultSet, times(1)).getString("title");
     }
 

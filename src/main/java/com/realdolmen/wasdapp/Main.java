@@ -12,17 +12,26 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException ,SQLException, WriterException, InterruptedException{
         
-       /* Scanner scanner = new Scanner(new File("C:/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv"));
-        scanner.useDelimiter(",");
-        while(scanner.hasNext()){
-            System.out.print(scanner.next()+" | ");
-        }
-        scanner.close();*/
-       //CsvFile csv1 = new CsvFile("SSS");
-      
+       //C:/Users/YLOBL55/Documents/GitHub/wassdap/Import-Sheet1.csv
+        
        
+       /*
+    1) chech if file is csv. until it is ask for a csv file.
+    2) maka a 2 dimensional array of the content of the csv file
+    3)display it to show the file content
+    
+    */
        CsvService csvService = new CsvService(new CsvFileRepo());
-       //csvService.readCsvFile();
+       
+    /*   all in one
+    1) Remove data in Table
+    2) takes the first item(Titel) of each row of 2demensional Array and create a QR-code 
+    3) insert 2deminsionale Array in table (Row Per Row)
+    4) display the insertion per row
+    
+     
+    */
+    
        csvService.insertInTable(csvService.readCsvFile());
     }
     

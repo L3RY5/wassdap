@@ -32,7 +32,7 @@ public class Main {
      
     */
     
-       csvService.insertInTable(csvService.readCsvFile());
+      csvService.insertInTable(csvService.readCsvFile());
     }
     
 }

@@ -74,6 +74,7 @@ public class CsvFileRepo {
              System.out.print("CSV type A.U.B ! :  ");
               path = in.next();
         }
+        System.out.print("\n");
         CSVReader reader2 = new CSVReader(new FileReader(path));
         List<String[]> myEntries = reader2.readAll();
         for (String[] kak : myEntries) {
@@ -81,7 +82,8 @@ public class CsvFileRepo {
         }
          temp = myEntries;
         } catch (FileNotFoundException e) {
-            System.err.print("File Not Found!\n");        
+            System.err.print("File Not Found!\n"); 
+            //System.exit(0);
             displayCsv();
             //throw  new FileNotFoundException("File Not found.");
         }
@@ -102,16 +104,16 @@ public class CsvFileRepo {
 
     private static final String QR_CODE_IMAGE_PATH = "./img/MyQRCode";
     public void allInOne(List<String[]> csv) throws SQLException, WriterException, IOException, InterruptedException {
-
+       
         connection=DriverManager.getConnection(URL, LOGIN, PASSWORD);
         Statement statement = connection.createStatement();
         statement.executeUpdate("TRUNCATE stageproduct.stageproducttabel");
         Thread.sleep(1000);
 
-        System.out.println("Clearing table");
+        System.out.println("Clearing table\n");
 
         String query = "INSERT INTO stageproduct.stageproducttabel(Titel,Locatie,Straat,Nr,PostCode,Gemeente,Land,Omschrijven,WikipediaLink,Website,Telefoon,Email,Prijs,Persoon)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        System.out.println("Pleas wait... connecting with DB");
+        System.out.println("Pleas wait... connecting with DB\n");
         conn = creatConnection();
         
         System.out.println("Adding Data into DB");
